@@ -3,36 +3,16 @@ package pl.sointeractive.fb_profiles_reader;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import pl.sointeractive.fb_profiles_reader.data_loader.FbProfileLoaderTest;
 
-/**
- * Unit test for simple App.
- */
-public class FbProfilesReaderTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public FbProfilesReaderTest( String testName )
-    {
-        super( testName );
+public class FbProfilesReaderTest extends TestCase {
+
+    public FbProfilesReaderTest(String testName) {
+        super(testName);
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( FbProfilesReaderTest.class );
+    public static Test suite() {
+        return new TestSuite(FbProfileLoaderTest.class);
     }
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
 }
