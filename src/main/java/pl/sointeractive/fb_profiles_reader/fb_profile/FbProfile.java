@@ -9,11 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FbProfile {
     long id;
-    @JsonIgnore
-    Date birthDate;
-    @JsonIgnore
+    // @JsonDeserialize(using = LocalDateDeserializer.class)
+    Date birthday;
     String firstName;
-    @JsonIgnore
     String lastName;
     @JsonIgnore
     String occupation;
@@ -40,6 +38,30 @@ public class FbProfile {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
 }
