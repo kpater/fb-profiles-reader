@@ -6,6 +6,7 @@ import java.util.Date;
 import org.junit.Test;
 
 import junit.framework.TestCase;
+import pl.sointeractive.fb_profiles_reader.fb_profile.City;
 import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Gender;
 
@@ -64,5 +65,15 @@ public class FbProfileLoaderTest extends TestCase {
     @Test
     public void testSchool() {
         assertEquals("Walter, Cartwright and Jerde", fbProfile.getSchool());
+    }
+
+    @Test
+    public void testCity() {
+        City city = fbProfile.getCity();
+        assertEquals("United Kingdom", city.getCountry());
+        assertEquals("London", city.getCity());
+        assertEquals("England", city.getState());
+        assertEquals(-0.12574, city.getCoordinates().getLongitude());
+        assertEquals(51.50853, city.getCoordinates().getLatitude());
     }
 }

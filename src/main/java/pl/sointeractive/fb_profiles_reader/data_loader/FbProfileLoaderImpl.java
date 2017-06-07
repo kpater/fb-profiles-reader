@@ -18,6 +18,7 @@ public class FbProfileLoaderImpl implements FbProfileLoader {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE);
         mapper.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true);
+        mapper.configure(DeserializationFeature.USE_LONG_FOR_INTS, true);
         FbProfile profile = mapper.readValue(file, FbProfile.class);
         return profile;
     }

@@ -1,22 +1,26 @@
 package pl.sointeractive.fb_profiles_reader.fb_profile;
 
-public class Coordinates {
-    long longitude;
-    long latitude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public long getLongitude() {
+public class Coordinates {
+    @JsonProperty("lon")
+    double longitude;
+    @JsonProperty("lat")
+    double latitude;
+
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public long getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 

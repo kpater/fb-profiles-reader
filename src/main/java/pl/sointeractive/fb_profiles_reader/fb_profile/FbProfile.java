@@ -15,7 +15,6 @@ public class FbProfile {
     String lastName;
     String occupation;
     Gender gender;
-    @JsonIgnore
     City city;
     String work;
     @JsonIgnore
@@ -76,6 +75,14 @@ public class FbProfile {
         this.gender = gender;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     public String getWork() {
         return work;
     }
@@ -84,12 +91,44 @@ public class FbProfile {
         this.work = work;
     }
 
+    public List<FbProfile> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<FbProfile> friends) {
+        this.friends = friends;
+    }
+
     public String getSchool() {
         return school;
     }
 
     public void setSchool(String school) {
         this.school = school;
+    }
+
+    public City getLocation() {
+        return location;
+    }
+
+    public void setLocation(City location) {
+        this.location = location;
+    }
+
+    public Relationship getRelationship() {
+        return relationship;
+    }
+
+    public void setRelationship(Relationship relationship) {
+        this.relationship = relationship;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
 }
