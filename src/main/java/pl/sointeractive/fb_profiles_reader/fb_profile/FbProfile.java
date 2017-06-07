@@ -13,17 +13,13 @@ public class FbProfile {
     Date birthday;
     String firstName;
     String lastName;
-    @JsonIgnore
     String occupation;
-    @JsonIgnore
     Gender gender;
     @JsonIgnore
     City city;
-    @JsonIgnore
     String work;
     @JsonIgnore
     List<FbProfile> friends;
-    @JsonIgnore
     String school;
     @JsonIgnore
     City location;
@@ -62,6 +58,38 @@ public class FbProfile {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getWork() {
+        return work;
+    }
+
+    public void setWork(String work) {
+        this.work = work;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
     }
 
 }
