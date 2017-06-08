@@ -15,17 +15,17 @@ import pl.sointeractive.fb_profiles_reader.fb_profile.Gender;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Post;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Relationship;
 
-public class FbProfileLoaderTest extends TestCase {
+public class FbProfilesLoaderTest extends TestCase {
 
     File file;
-    FbProfileLoader fbProfileLoader;
+    FbProfilesLoader fbProfileLoader;
     FbProfile fbProfile;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         file = new File("src/test/resources/f1.json");
-        fbProfileLoader = new FbProfileLoaderImpl();
+        fbProfileLoader = new FbProfilesLoaderImpl();
         fbProfile = fbProfileLoader.loadFbProfile(file);
     }
 

@@ -3,7 +3,7 @@ package pl.sointeractive.fb_profiles_reader;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import pl.sointeractive.fb_profiles_reader.data_loader.FbProfileLoaderTest;
+import pl.sointeractive.fb_profiles_reader.data_loader.FbProfilesLoaderTest;
 
 public class FbProfilesReaderTest extends TestCase {
 
@@ -12,7 +12,7 @@ public class FbProfilesReaderTest extends TestCase {
     }
 
     public static Test suite() {
-        return new TestSuite(FbProfileLoaderTest.class);
+        return new TestSuite(FbProfilesLoaderTest.class);
     }
 
 }
