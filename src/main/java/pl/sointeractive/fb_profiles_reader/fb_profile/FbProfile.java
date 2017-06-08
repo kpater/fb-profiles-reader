@@ -25,9 +25,7 @@ public class FbProfile {
     String school;
     @JsonIgnore
     City location;
-    @JsonIgnore
     Relationship relationship;
-    @JsonIgnore
     List<Post> posts;
 
     public long getId() {

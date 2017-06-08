@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -11,6 +12,8 @@ import junit.framework.TestCase;
 import pl.sointeractive.fb_profiles_reader.fb_profile.City;
 import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Gender;
+import pl.sointeractive.fb_profiles_reader.fb_profile.Post;
+import pl.sointeractive.fb_profiles_reader.fb_profile.Relationship;
 
 public class FbProfileLoaderTest extends TestCase {
 
@@ -79,4 +82,31 @@ public class FbProfileLoaderTest extends TestCase {
         assertEquals(-0.12574, city.getCoordinates().getLongitude());
         assertEquals(51.50853, city.getCoordinates().getLatitude());
     }
+
+    @Test
+    public void testRelationship() {
+        assertEquals(Relationship.MARRIED, fbProfile.getRelationship());
+    }
+
+    @Test
+    public void testPosts() {
+        List<Post> posts = fbProfile.getPosts();
+        assertNotNull(posts);
+        assertEquals(3, posts.size());
+
+        Post post = posts.get(2);
+        assertEquals(3, post.getId());
+        assertNotNull(post.getMessage());
+    }
+
+    // @Test
+    // public void testFrieds() {
+    // List<FbProfile> friendFbProfiles = fbProfile.getFriends();
+    // assertNotNull(friendFbProfiles);
+    // assertEquals(14, friendFbProfiles.size());
+    //
+    // FbProfile friendFbProfile = friendFbProfiles.get(1);
+    // assertEquals(38, friendFbProfile.getId());
+    // assertNull(friendFbProfile.getLastName());
+    // }
 }

@@ -7,10 +7,10 @@ public enum Gender {
     // Stream.of(Gender.values())
     // .collect(Collectors.toMap(s -> s.formatted, Function.identity()));
 
-    private final String formatted;
+    private final String jsonFormat;
 
-    Gender(String formatted) {
-        this.formatted = formatted;
+    Gender(String jsonFormat) {
+        this.jsonFormat = jsonFormat;
     }
 
     // @JsonCreator
@@ -21,6 +21,6 @@ public enum Gender {
 
     @Override
     public String toString() {
-        return formatted;
+        return jsonFormat;
     }
 }
