@@ -1,16 +1,19 @@
 package pl.sointeractive.fb_profiles_reader.fb_profile;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import pl.sointeractive.fb_profiles_reader.data_loader.LocalDateTimeFromEpochDeserializer;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FbProfile {
     long id;
-    // @JsonDeserialize(using = LocalDateDeserializer.class)
-    Date birthday;
+    @JsonDeserialize(using = LocalDateTimeFromEpochDeserializer.class)
+    LocalDateTime birthday;
     String firstName;
     String lastName;
     String occupation;
@@ -35,11 +38,11 @@ public class FbProfile {
         this.id = id;
     }
 
-    public Date getBirthday() {
+    public LocalDateTime getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDateTime birthday) {
         this.birthday = birthday;
     }
 

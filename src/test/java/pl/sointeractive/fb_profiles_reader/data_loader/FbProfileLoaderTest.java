@@ -1,7 +1,9 @@
 package pl.sointeractive.fb_profiles_reader.data_loader;
 
 import java.io.File;
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import org.junit.Test;
 
@@ -33,7 +35,8 @@ public class FbProfileLoaderTest extends TestCase {
     public void testProfileBirthday() {
         // LocalDate expectedDate =
         // Instant.ofEpochMilli(401280850089L).atZone(ZoneId.systemDefault()).toLocalDate();
-        Date expectedDate = new Date(401280850089L);
+        LocalDateTime expectedDate = Instant.ofEpochMilli(401280850089L).atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
         assertEquals(expectedDate, fbProfile.getBirthday());
     }
 
