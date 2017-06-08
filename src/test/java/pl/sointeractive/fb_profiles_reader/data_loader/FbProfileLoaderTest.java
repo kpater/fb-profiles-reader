@@ -36,8 +36,6 @@ public class FbProfileLoaderTest extends TestCase {
 
     @Test
     public void testProfileBirthday() {
-        // LocalDate expectedDate =
-        // Instant.ofEpochMilli(401280850089L).atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDateTime expectedDate = Instant.ofEpochMilli(401280850089L).atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
         assertEquals(expectedDate, fbProfile.getBirthday());
@@ -69,6 +67,14 @@ public class FbProfileLoaderTest extends TestCase {
     }
 
     @Test
+    public void testFrieds() {
+        List<Long> friendIds = fbProfile.getFriendIds();
+        assertNotNull(friendIds);
+        assertEquals(14, friendIds.size());
+        assertEquals(38L, friendIds.get(1).longValue());
+    }
+
+    @Test
     public void testSchool() {
         assertEquals("Walter, Cartwright and Jerde", fbProfile.getSchool());
     }
@@ -81,6 +87,11 @@ public class FbProfileLoaderTest extends TestCase {
         assertEquals("England", city.getState());
         assertEquals(-0.12574, city.getCoordinates().getLongitude());
         assertEquals(51.50853, city.getCoordinates().getLatitude());
+    }
+
+    @Test
+    public void testLocation() {
+        assertEquals("London", fbProfile.getLocationCity());
     }
 
     @Test
@@ -98,15 +109,4 @@ public class FbProfileLoaderTest extends TestCase {
         assertEquals(3, post.getId());
         assertNotNull(post.getMessage());
     }
-
-    // @Test
-    // public void testFrieds() {
-    // List<FbProfile> friendFbProfiles = fbProfile.getFriends();
-    // assertNotNull(friendFbProfiles);
-    // assertEquals(14, friendFbProfiles.size());
-    //
-    // FbProfile friendFbProfile = friendFbProfiles.get(1);
-    // assertEquals(38, friendFbProfile.getId());
-    // assertNull(friendFbProfile.getLastName());
-    // }
 }

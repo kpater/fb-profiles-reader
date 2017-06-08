@@ -3,8 +3,8 @@ package pl.sointeractive.fb_profiles_reader.fb_profile;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import pl.sointeractive.fb_profiles_reader.data_loader.LocalDateTimeFromEpochDeserializer;
@@ -20,11 +20,11 @@ public class FbProfile {
     Gender gender;
     City city;
     String work;
-    @JsonIgnore
-    List<FbProfile> friends;
+    @JsonProperty("friends")
+    List<Long> friendIds;
     String school;
-    @JsonIgnore
-    City location;
+    @JsonProperty("location")
+    String locationCity;
     Relationship relationship;
     List<Post> posts;
 
@@ -92,12 +92,12 @@ public class FbProfile {
         this.work = work;
     }
 
-    public List<FbProfile> getFriends() {
-        return friends;
+    public List<Long> getFriendIds() {
+        return friendIds;
     }
 
-    public void setFriends(List<FbProfile> friends) {
-        this.friends = friends;
+    public void setFriendIds(List<Long> friendIds) {
+        this.friendIds = friendIds;
     }
 
     public String getSchool() {
@@ -108,12 +108,12 @@ public class FbProfile {
         this.school = school;
     }
 
-    public City getLocation() {
-        return location;
+    public String getLocationCity() {
+        return locationCity;
     }
 
-    public void setLocation(City location) {
-        this.location = location;
+    public void setLocationCity(String locationCity) {
+        this.locationCity = locationCity;
     }
 
     public Relationship getRelationship() {
