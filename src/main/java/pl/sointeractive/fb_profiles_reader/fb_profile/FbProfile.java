@@ -7,12 +7,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import pl.sointeractive.fb_profiles_reader.data_loader.LocalDateTimeFromEpochDeserializer;
+import pl.sointeractive.fb_profiles_reader.jackson.Epoch2LocalDateTimeDeserializer;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FbProfile {
-    long id;
-    @JsonDeserialize(using = LocalDateTimeFromEpochDeserializer.class)
+    String id;
+    @JsonDeserialize(using = Epoch2LocalDateTimeDeserializer.class)
     LocalDateTime birthday;
     String firstName;
     String lastName;
@@ -28,11 +28,18 @@ public class FbProfile {
     Relationship relationship;
     List<Post> posts;
 
-    public long getId() {
+    public FbProfile() {
+    }
+
+    public FbProfile(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

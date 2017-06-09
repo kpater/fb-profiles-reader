@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 
 import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
 
-public class FbProfileLoaderImpl implements FbProfileLoader {
+public class FileFbProfileLoader implements FbProfilesLoader {
 
     @Override
     public FbProfile loadFbProfile(File file) throws JsonParseException, JsonMappingException, IOException {

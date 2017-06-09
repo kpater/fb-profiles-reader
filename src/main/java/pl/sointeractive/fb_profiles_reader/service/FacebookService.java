@@ -3,18 +3,17 @@ package pl.sointeractive.fb_profiles_reader.service;
 import java.util.Map;
 import java.util.Set;
 
+import pl.sointeractive.fb_profiles_reader.exception.NotFoundException;
 import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
 
 public interface FacebookService {
     /**
-     * Zwraca obiekt reprezentujący profil Facebooka na podstawie id w czasie
-     * logarytmicznym
+     * Zwraca obiekt reprezentujący profil Facebooka na podstawie id w czasie logarytmicznym
      */
     FbProfile findById(String id) throws NotFoundException;
 
     /**
-     * Zwraca mapę której kluczem jest słowo a wartością liczba jego wystąpień -
-     * pod uwagę brane są wszystkie posty      
+     * Zwraca mapę której kluczem jest słowo a wartością liczba jego wystąpień - pod uwagę brane są wszystkie posty 
      */
     Map<String, Long> findMostCommonWords();
 
@@ -24,8 +23,7 @@ public interface FacebookService {
     Set<String> findPostIdsByKeyword(String word);
 
     /**
-     * Zwraca zbiór obiektów reprezentujących profile Facebooka posortowane po
-     * firstname, lastname
+     * Zwraca zbiór obiektów reprezentujących profile Facebooka posortowane po firstname, lastname
      */
     Set<FbProfile> findAll();
 }
