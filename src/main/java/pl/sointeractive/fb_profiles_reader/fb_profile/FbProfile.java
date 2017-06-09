@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pl.sointeractive.fb_profiles_reader.data_loader.LocalDateTimeFromEpochDeserializer;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FbProfile {
+public class FbProfile implements Comparable<FbProfile> {
     String id;
     @JsonDeserialize(using = LocalDateTimeFromEpochDeserializer.class)
     LocalDateTime birthday;
@@ -27,6 +27,13 @@ public class FbProfile {
     String locationCity;
     Relationship relationship;
     List<Post> posts;
+
+    public FbProfile() {
+    }
+
+    public FbProfile(String id) {
+        this.id = id;
+    }
 
     public String getId() {
         return id;
@@ -130,6 +137,11 @@ public class FbProfile {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    @Override
+    public int compareTo(FbProfile fbProfile) {
+        return this.getId().compareTo(fbProfile.getId());
     }
 
 }

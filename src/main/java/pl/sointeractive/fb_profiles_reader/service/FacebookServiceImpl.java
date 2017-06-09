@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -29,7 +32,7 @@ public class FacebookServiceImpl implements FacebookService {
 
     FbProfilesLoader fbProfilesLoader = new FbProfilesLoaderImpl();
 
-    Set<FbProfile> fbProfilesSortedById;
+    List<FbProfile> fbProfilesSortedById;
 
     public FacebookServiceImpl() throws IOException {
         loadFbProfiles();
@@ -37,8 +40,13 @@ public class FacebookServiceImpl implements FacebookService {
 
     @Override
     public FbProfile findById(String id) throws NotFoundException {
-        return fbProfilesSortedById.stream().filter(p -> p.getId().equals(id)).findFirst()
-                .orElseThrow(() -> new NotFoundException(id));
+        // return fbProfilesSortedById.stream().filter(p -> p.getId().equals(id)).findFirst()
+        // .orElseThrow(() -> new NotFoundException(id));
+        int i = Collections.binarySearch(fbProfilesSortedById, new FbProfile(id));
+        if (i < 0) {
+            throw new NotFoundException(id);
+        }
+        return fbProfilesSortedById.get(i);
     }
 
     @Override
@@ -62,16 +70,17 @@ public class FacebookServiceImpl implements FacebookService {
 
     private void loadFbProfiles() throws IOException {
         fbProfilesSortedById = Files.walk(Paths.get(ApplicationProperties.JSON_DIRECTORY)).filter(Files::isRegularFile)
-                .map(Path::toFile).map(getFile2FbProfileFunction()).filter(Objects::nonNull)
-                .sorted(Comparator.comparing(FbProfile::getId)).collect(Collectors.toCollection(LinkedHashSet::new));
+                .map(Path::toFile).map(file2FbProfile()).filter(Objects::nonNull)
+                .sorted(Comparator.comparing(FbProfile::getId)).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    private Function<File, FbProfile> getFile2FbProfileFunction() {
+    private Function<File, FbProfile> file2FbProfile() {
         return (File file) -> {
             try {
                 return fbProfilesLoader.loadFbProfile(file);
             } catch (IOException e) {
                 LOGGER.severe(String.format("Cannot load FB profile from file %s", file.getAbsolutePath()));
+                e.printStackTrace();
             }
             return null;
         };
