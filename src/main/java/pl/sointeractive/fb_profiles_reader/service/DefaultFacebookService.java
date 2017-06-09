@@ -21,20 +21,21 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import pl.sointeractive.fb_profiles_reader.data_loader.FbProfilesLoader;
-import pl.sointeractive.fb_profiles_reader.data_loader.FbProfilesLoaderImpl;
+import pl.sointeractive.fb_profiles_reader.exception.NotFoundException;
 import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Post;
 import pl.sointeractive.fb_profiles_reader.properties.ApplicationProperties;
 
-public class FacebookServiceImpl implements FacebookService {
+public class DefaultFacebookService implements FacebookService {
 
-    private static final Logger LOGGER = Logger.getLogger(FacebookServiceImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DefaultFacebookService.class.getName());
 
-    FbProfilesLoader fbProfilesLoader = new FbProfilesLoaderImpl();
+    FbProfilesLoader fbProfilesLoader;
 
     List<FbProfile> fbProfilesSortedById;
 
-    public FacebookServiceImpl() throws IOException {
+    public DefaultFacebookService(FbProfilesLoader fbProfilesLoader) throws IOException {
+        this.fbProfilesLoader = fbProfilesLoader;
         loadFbProfiles();
     }
 
@@ -42,7 +43,8 @@ public class FacebookServiceImpl implements FacebookService {
     public FbProfile findById(String id) throws NotFoundException {
         // return fbProfilesSortedById.stream().filter(p -> p.getId().equals(id)).findFirst()
         // .orElseThrow(() -> new NotFoundException(id));
-        int i = Collections.binarySearch(fbProfilesSortedById, new FbProfile(id));
+        int i = Collections.binarySearch(fbProfilesSortedById, new FbProfile(id),
+                Comparator.comparing(FbProfile::getId));
         if (i < 0) {
             throw new NotFoundException(id);
         }
@@ -87,9 +89,8 @@ public class FacebookServiceImpl implements FacebookService {
     }
 
     private Comparator<FbProfile> fbProfileFirstNameLastNameComparaotr() {
-        Comparator<FbProfile> comparator = Comparator.comparing(FbProfile::getFirstName);
-        comparator = comparator.thenComparing(Comparator.comparing(FbProfile::getLastName));
-        return comparator;
+        return Comparator.<FbProfile, String>comparing(FbProfile::getFirstName)
+                .thenComparing(Comparator.comparing(FbProfile::getLastName));
     }
 
 }

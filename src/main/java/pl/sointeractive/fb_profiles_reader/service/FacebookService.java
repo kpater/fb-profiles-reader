@@ -3,6 +3,7 @@ package pl.sointeractive.fb_profiles_reader.service;
 import java.util.Map;
 import java.util.Set;
 
+import pl.sointeractive.fb_profiles_reader.exception.NotFoundException;
 import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
 
 public interface FacebookService {

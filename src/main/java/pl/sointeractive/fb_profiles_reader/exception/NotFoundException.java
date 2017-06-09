@@ -1,4 +1,4 @@
-package pl.sointeractive.fb_profiles_reader.service;
+package pl.sointeractive.fb_profiles_reader.exception;
 
 public class NotFoundException extends Exception {
 

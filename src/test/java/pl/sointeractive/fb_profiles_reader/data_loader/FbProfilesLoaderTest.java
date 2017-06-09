@@ -25,7 +25,7 @@ public class FbProfilesLoaderTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         file = new File("src/test/resources/f1.json");
-        fbProfileLoader = new FbProfilesLoaderImpl();
+        fbProfileLoader = new FileFbProfileLoader();
         fbProfile = fbProfileLoader.loadFbProfile(file);
     }
 

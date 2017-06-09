@@ -7,12 +7,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import pl.sointeractive.fb_profiles_reader.data_loader.LocalDateTimeFromEpochDeserializer;
+import pl.sointeractive.fb_profiles_reader.jackson.Epoch2LocalDateTimeDeserializer;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FbProfile implements Comparable<FbProfile> {
+public class FbProfile {
     String id;
-    @JsonDeserialize(using = LocalDateTimeFromEpochDeserializer.class)
+    @JsonDeserialize(using = Epoch2LocalDateTimeDeserializer.class)
     LocalDateTime birthday;
     String firstName;
     String lastName;
@@ -137,11 +137,6 @@ public class FbProfile implements Comparable<FbProfile> {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
-    }
-
-    @Override
-    public int compareTo(FbProfile fbProfile) {
-        return this.getId().compareTo(fbProfile.getId());
     }
 
 }

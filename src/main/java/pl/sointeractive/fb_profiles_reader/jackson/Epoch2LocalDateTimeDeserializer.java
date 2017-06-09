@@ -1,4 +1,4 @@
-package pl.sointeractive.fb_profiles_reader.data_loader;
+package pl.sointeractive.fb_profiles_reader.jackson;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -11,11 +11,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
-public class LocalDateTimeFromEpochDeserializer extends StdDeserializer<LocalDateTime> {
+public class Epoch2LocalDateTimeDeserializer extends StdDeserializer<LocalDateTime> {
 
     private static final long serialVersionUID = 1L;
 
-    protected LocalDateTimeFromEpochDeserializer() {
+    protected Epoch2LocalDateTimeDeserializer() {
         super(LocalDate.class);
     }
 

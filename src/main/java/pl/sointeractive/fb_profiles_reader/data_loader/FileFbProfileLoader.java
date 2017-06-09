@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 
 import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
 
-public class FbProfilesLoaderImpl implements FbProfilesLoader {
+public class FileFbProfileLoader implements FbProfilesLoader {
 
     @Override
     public FbProfile loadFbProfile(File file) throws JsonParseException, JsonMappingException, IOException {
@@ -22,20 +22,5 @@ public class FbProfilesLoaderImpl implements FbProfilesLoader {
         FbProfile profile = mapper.readValue(file, FbProfile.class);
         return profile;
     }
-    //
-    // @Override
-    // public Set<FbProfile> loadAllFbProfiles(String directoryPath)
-    // throws JsonParseException, JsonMappingException, IOException {
-    // return Files.walk(Paths.get(directoryPath)).map(Path::toFile).map((File
-    // f) -> {
-    // try {
-    // return loadFbProfile(f);
-    // } catch (IOException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // }
-    // return null;
-    // }).collect(Collectors.toSet());
-    // }
 
 }
