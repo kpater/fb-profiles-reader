@@ -11,7 +11,7 @@ import pl.sointeractive.fb_profiles_reader.data_loader.LocalDateTimeFromEpochDes
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FbProfile {
-    long id;
+    String id;
     @JsonDeserialize(using = LocalDateTimeFromEpochDeserializer.class)
     LocalDateTime birthday;
     String firstName;
@@ -28,11 +28,11 @@ public class FbProfile {
     Relationship relationship;
     List<Post> posts;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
