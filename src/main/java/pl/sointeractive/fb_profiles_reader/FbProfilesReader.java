@@ -3,11 +3,6 @@ package pl.sointeractive.fb_profiles_reader;
 import java.io.IOException;
 import java.util.Set;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
-import pl.sointeractive.fb_profiles_reader.data_loader.FbProfilesLoader;
-import pl.sointeractive.fb_profiles_reader.data_loader.FbProfilesLoaderImpl;
 import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
 import pl.sointeractive.fb_profiles_reader.service.FacebookService;
 import pl.sointeractive.fb_profiles_reader.service.FacebookServiceImpl;
@@ -19,8 +14,7 @@ import pl.sointeractive.fb_profiles_reader.service.NotFoundException;
  */
 public class FbProfilesReader {
 
-    public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
-        FbProfilesLoader fbProfileLoader = new FbProfilesLoaderImpl();
+    public static void main(String[] args) throws IOException {
         FacebookService facebookService = new FacebookServiceImpl();
 
         Set<FbProfile> fbProfiles = facebookService.findAll();
