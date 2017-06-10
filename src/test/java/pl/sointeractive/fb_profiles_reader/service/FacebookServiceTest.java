@@ -3,8 +3,9 @@ package pl.sointeractive.fb_profiles_reader.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -43,7 +44,16 @@ public class FacebookServiceTest extends TestCase {
     @Test
     public void testFindMostCommonWords() {
         assertEquals(3, facebookService.findMostCommonWords().get("gol").longValue());
-        assertEquals(2, facebookService.findMostCommonWords().get("brawo").longValue());
+        assertEquals(4, facebookService.findMostCommonWords().get("brawo").longValue());
+    }
+
+    @Test
+    public void testFindAll() {
+        List<String> team = Arrays.asList("Artur Jędrzejczyk", "Jakub Błaszczykowski", "Kamil Grosicki",
+                "Karol Linetty", "Krzysztof Mączyński", "Łukasz Piszczek", "Michał Pazdan", "Piotr Zieliński",
+                "Robert Lewandowski", "Tiago Cionek", "Wojciech Szczęsny");
+        assertEquals(new LinkedHashSet<String>(team), facebookService.findAll().stream().map(Facebook::getName)
+                .collect(Collectors.toCollection(LinkedHashSet::new)));
     }
 
     @Test
@@ -68,14 +78,14 @@ public class FacebookServiceTest extends TestCase {
 
         facebookProfile = new Facebook("3");
         facebookProfile.setFirstName("Artur");
-        facebookProfile.setLastName("Jedrzejczyk");
+        facebookProfile.setLastName("Jędrzejczyk");
         posts = new ArrayList<Post>();
         posts.add(getPost("4", "Brawo, brawo, brawo"));
         facebookProfile.setPosts(posts);
         facebookProfiles.add(facebookProfile);
 
         facebookProfile = new Facebook("2");
-        facebookProfile.setFirstName("Michal");
+        facebookProfile.setFirstName("Michał");
         facebookProfile.setLastName("Pazdan");
         posts = new ArrayList<Post>();
         posts.add(getPost("5", "Jak pech to pech: Nie dość że rikoszet, to jeszcze ręką"));
@@ -91,7 +101,7 @@ public class FacebookServiceTest extends TestCase {
         facebookProfiles.add(facebookProfile);
 
         facebookProfile = new Facebook("20");
-        facebookProfile.setFirstName("Lukasz");
+        facebookProfile.setFirstName("Łukasz");
         facebookProfile.setLastName("Piszczek");
         posts = new ArrayList<Post>();
         posts.add(getPost("7", "Dobrze było znowu pograć z Kubą i Robertem"));
@@ -117,7 +127,7 @@ public class FacebookServiceTest extends TestCase {
 
         facebookProfile = new Facebook("5");
         facebookProfile.setFirstName("Krzysztof");
-        facebookProfile.setLastName("Maczynski");
+        facebookProfile.setLastName("Mączyński");
         posts = new ArrayList<Post>();
         posts.add(getPost("11", "Wrócę silniejszy"));
         facebookProfile.setPosts(posts);
@@ -125,7 +135,7 @@ public class FacebookServiceTest extends TestCase {
 
         facebookProfile = new Facebook("16");
         facebookProfile.setFirstName("Jakub");
-        facebookProfile.setLastName("Blaszczykowski");
+        facebookProfile.setLastName("Błaszczykowski");
         posts = new ArrayList<Post>();
         posts.add(getPost("12", "Spokojnie, spokojnie, jeszcze 4 mecze przed nami"));
         facebookProfile.setPosts(posts);
@@ -133,7 +143,7 @@ public class FacebookServiceTest extends TestCase {
 
         facebookProfile = new Facebook("19");
         facebookProfile.setFirstName("Piotr");
-        facebookProfile.setLastName("Zielinski");
+        facebookProfile.setLastName("Zieliński");
         posts = new ArrayList<Post>();
         posts.add(getPost("13", "Robertowi brakowało bramki do skompletowania hat-tricka to mu karnego wypracowałem"));
         facebookProfile.setPosts(posts);

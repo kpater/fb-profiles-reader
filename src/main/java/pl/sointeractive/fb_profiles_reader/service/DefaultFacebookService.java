@@ -1,6 +1,7 @@
 package pl.sointeractive.fb_profiles_reader.service;
 
 import java.io.IOException;
+import java.text.Collator;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,10 +9,10 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -42,8 +43,8 @@ public class DefaultFacebookService implements FacebookService {
 
     @Override
     public Map<String, Long> findMostCommonWords() {
-        return getPostStream().map(Post::getMessageAsWords).filter(Objects:nonNull).flatMap(Arrays::stream)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        return getPostStream().map(Post::getMessageAsWords).flatMap(Arrays::stream)
+                .collect(Collectors.groupingBy(String::toLowerCase, Collectors.counting()));
     }
 
     @Override
@@ -54,13 +55,14 @@ public class DefaultFacebookService implements FacebookService {
 
     @Override
     public Set<Facebook> findAll() {
-        return facebookProfilesSortedById.stream().sorted(facebookProfileFirstNameLastNameComparator())
+        return facebookProfilesSortedById.stream().sorted(getPolishComparator())
                 .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    private Comparator<Facebook> facebookProfileFirstNameLastNameComparator() {
-        return Comparator.<Facebook, String>comparing(Facebook::getFirstName)
-                .thenComparing(Comparator.comparing(Facebook::getLastName));
+    private Comparator<? super Facebook> getPolishComparator() {
+        Collator collator = Collator.getInstance(new Locale("pl", "PL"));
+        collator.setStrength(Collator.PRIMARY);
+        return (f1, f2) -> collator.compare(f1.getName(), f2.getName());
     }
 
     private Stream<Post> getPostStream() {
