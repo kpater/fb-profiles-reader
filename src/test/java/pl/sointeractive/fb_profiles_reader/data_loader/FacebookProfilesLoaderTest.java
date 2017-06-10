@@ -15,60 +15,60 @@ import pl.sointeractive.fb_profiles_reader.fb_profile.Gender;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Post;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Relationship;
 
-public class FbProfilesLoaderTest extends TestCase {
+public class FacebookProfilesLoaderTest extends TestCase {
 
     File file;
-    FbProfilesLoader fbProfileLoader;
-    Facebook fbProfile;
+    FacebookProfilesLoader facebookProfileLoader;
+    Facebook facebookProfile;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         file = new File("src/test/resources/f1.json");
-        fbProfileLoader = new FileFbProfileLoader();
-        fbProfile = fbProfileLoader.loadFbProfile(file);
+        facebookProfileLoader = new FileFacebookProfileLoader();
+        facebookProfile = facebookProfileLoader.loadFacebookProfile(file);
     }
 
     @Test
     public void testProfileId() {
-        assertEquals("1", fbProfile.getId());
+        assertEquals("1", facebookProfile.getId());
     }
 
     @Test
     public void testProfileBirthday() {
         LocalDateTime expectedDate = Instant.ofEpochMilli(401280850089L).atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
-        assertEquals(expectedDate, fbProfile.getBirthday());
+        assertEquals(expectedDate, facebookProfile.getBirthday());
     }
 
     @Test
     public void testFirstName() {
-        assertEquals("Luna", fbProfile.getFirstName());
+        assertEquals("Luna", facebookProfile.getFirstName());
     }
 
     @Test
     public void testLastName() {
-        assertEquals("Kling", fbProfile.getLastName());
+        assertEquals("Kling", facebookProfile.getLastName());
     }
 
     @Test
     public void testOccupation() {
-        assertEquals("Direct Applications Administrator", fbProfile.getOccupation());
+        assertEquals("Direct Applications Administrator", facebookProfile.getOccupation());
     }
 
     @Test
     public void testGender() {
-        assertEquals(Gender.FEMALE, fbProfile.getGender());
+        assertEquals(Gender.FEMALE, facebookProfile.getGender());
     }
 
     @Test
     public void testWork() {
-        assertEquals("Lebsack - Rippin", fbProfile.getWork());
+        assertEquals("Lebsack - Rippin", facebookProfile.getWork());
     }
 
     @Test
     public void testFrieds() {
-        List<Long> friendIds = fbProfile.getFriendIds();
+        List<Long> friendIds = facebookProfile.getFriendIds();
         assertNotNull(friendIds);
         assertEquals(14, friendIds.size());
         assertEquals(38L, friendIds.get(1).longValue());
@@ -76,12 +76,12 @@ public class FbProfilesLoaderTest extends TestCase {
 
     @Test
     public void testSchool() {
-        assertEquals("Walter, Cartwright and Jerde", fbProfile.getSchool());
+        assertEquals("Walter, Cartwright and Jerde", facebookProfile.getSchool());
     }
 
     @Test
     public void testCity() {
-        City city = fbProfile.getCity();
+        City city = facebookProfile.getCity();
         assertEquals("United Kingdom", city.getCountry());
         assertEquals("London", city.getCity());
         assertEquals("England", city.getState());
@@ -91,17 +91,17 @@ public class FbProfilesLoaderTest extends TestCase {
 
     @Test
     public void testLocation() {
-        assertEquals("London", fbProfile.getLocationCity());
+        assertEquals("London", facebookProfile.getLocationCity());
     }
 
     @Test
     public void testRelationship() {
-        assertEquals(Relationship.MARRIED, fbProfile.getRelationship());
+        assertEquals(Relationship.MARRIED, facebookProfile.getRelationship());
     }
 
     @Test
     public void testPosts() {
-        List<Post> posts = fbProfile.getPosts();
+        List<Post> posts = facebookProfile.getPosts();
         assertNotNull(posts);
         assertEquals(3, posts.size());
 

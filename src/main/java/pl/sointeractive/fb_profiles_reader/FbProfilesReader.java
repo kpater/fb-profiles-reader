@@ -1,12 +1,16 @@
 package pl.sointeractive.fb_profiles_reader;
 
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import pl.sointeractive.fb_profiles_reader.data_loader.FileFbProfileLoader;
+import pl.sointeractive.fb_profiles_reader.data_loader.FacebookProfilesLoader;
+import pl.sointeractive.fb_profiles_reader.data_loader.FileFacebookProfileLoader;
 import pl.sointeractive.fb_profiles_reader.exception.NotFoundException;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Facebook;
+import pl.sointeractive.fb_profiles_reader.properties.ApplicationProperties;
 import pl.sointeractive.fb_profiles_reader.service.DefaultFacebookService;
 import pl.sointeractive.fb_profiles_reader.service.FacebookService;
 
@@ -14,12 +18,16 @@ public class FbProfilesReader {
     private static final Logger LOGGER = Logger.getLogger(FbProfilesReader.class.getName());
 
     public static void main(String[] args) throws IOException {
-        FacebookService facebookService = new DefaultFacebookService(new FileFbProfileLoader());
+        FacebookProfilesLoader facebookProfilesLoader = new FileFacebookProfileLoader();
+        List<Facebook> facebookProfiles = facebookProfilesLoader
+                .loadProfiles(Paths.get(ApplicationProperties.JSON_DIRECTORY));
 
-        Set<Facebook> fbProfiles = facebookService.findAll();
+        FacebookService facebookService = new DefaultFacebookService(facebookProfiles);
 
-        System.out.format("Found %d profiles:\n", fbProfiles.size());
-        for (Facebook profile : fbProfiles) {
+        Set<Facebook> allFacebookProfiles = facebookService.findAll();
+
+        System.out.format("Found %d profiles:\n", allFacebookProfiles.size());
+        for (Facebook profile : allFacebookProfiles) {
             System.out.println(" - " + profile.getId() + " " + profile.getFirstName() + " " + profile.getLastName());
         }
 
