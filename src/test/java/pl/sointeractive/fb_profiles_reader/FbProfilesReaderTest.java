@@ -4,6 +4,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import pl.sointeractive.fb_profiles_reader.data_loader.FacebookProfilesLoaderTest;
+import pl.sointeractive.fb_profiles_reader.service.FacebookServiceTest;
 
 public class FbProfilesReaderTest extends TestCase {
 
@@ -12,7 +13,7 @@ public class FbProfilesReaderTest extends TestCase {
     }
 
     public static Test suite() {
-        return new TestSuite(FacebookProfilesLoaderTest.class);
+        return new TestSuite(FacebookProfilesLoaderTest.class, FacebookServiceTest.class);
     }
 
 }
