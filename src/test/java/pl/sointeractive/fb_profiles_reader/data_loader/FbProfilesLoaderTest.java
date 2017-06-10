@@ -31,7 +31,7 @@ public class FbProfilesLoaderTest extends TestCase {
 
     @Test
     public void testProfileId() {
-        assertEquals(1, fbProfile.getId());
+        assertEquals("1", fbProfile.getId());
     }
 
     @Test
@@ -106,7 +106,7 @@ public class FbProfilesLoaderTest extends TestCase {
         assertEquals(3, posts.size());
 
         Post post = posts.get(2);
-        assertEquals(3, post.getId());
+        assertEquals("3", post.getId());
         assertNotNull(post.getMessage());
     }
 }
