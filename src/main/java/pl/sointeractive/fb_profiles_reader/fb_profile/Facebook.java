@@ -139,4 +139,8 @@ public class Facebook {
         this.posts = posts;
     }
 
+    public String getName() {
+        return firstName + " " + lastName;
+    }
+
 }
