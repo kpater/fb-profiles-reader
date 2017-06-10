@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -40,8 +41,8 @@ public class DefaultFacebookService implements FacebookService {
 
     @Override
     public Map<String, Long> findMostCommonWords() {
-        return facebookProfilesSortedById.stream().map(Facebook::getPosts).flatMap(Collection::stream)
-                .map(Post::getMessageAsWords).flatMap(Arrays::stream)
+        return facebookProfilesSortedById.stream().map(Facebook::getPosts).filter(Objects::nonNull)
+                .flatMap(Collection::stream).map(Post::getMessageAsWords).flatMap(Arrays::stream)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
