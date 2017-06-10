@@ -4,13 +4,13 @@ import java.util.Map;
 import java.util.Set;
 
 import pl.sointeractive.fb_profiles_reader.exception.NotFoundException;
-import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
+import pl.sointeractive.fb_profiles_reader.fb_profile.Facebook;
 
 public interface FacebookService {
     /**
      * Zwraca obiekt reprezentujący profil Facebooka na podstawie id w czasie logarytmicznym
      */
-    FbProfile findById(String id) throws NotFoundException;
+    Facebook findById(String id) throws NotFoundException;
 
     /**
      * Zwraca mapę której kluczem jest słowo a wartością liczba jego wystąpień - pod uwagę brane są wszystkie posty 
@@ -25,5 +25,5 @@ public interface FacebookService {
     /**
      * Zwraca zbiór obiektów reprezentujących profile Facebooka posortowane po firstname, lastname
      */
-    Set<FbProfile> findAll();
+    Set<Facebook> findAll();
 }

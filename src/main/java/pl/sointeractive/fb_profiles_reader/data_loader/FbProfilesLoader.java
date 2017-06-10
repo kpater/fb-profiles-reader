@@ -3,8 +3,8 @@ package pl.sointeractive.fb_profiles_reader.data_loader;
 import java.io.File;
 import java.io.IOException;
 
-import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
+import pl.sointeractive.fb_profiles_reader.fb_profile.Facebook;
 
 public interface FbProfilesLoader {
-    FbProfile loadFbProfile(File file) throws IOException;
+    Facebook loadFbProfile(File file) throws IOException;
 }

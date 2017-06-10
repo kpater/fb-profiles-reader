@@ -1,4 +1,4 @@
-package pl.sointeractive.fb_profiles_reader.jackson;
+package pl.sointeractive.fb_profiles_reader.data_loader;
 
 import java.io.IOException;
 import java.time.Instant;

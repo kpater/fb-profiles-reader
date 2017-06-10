@@ -9,17 +9,17 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 
-import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
+import pl.sointeractive.fb_profiles_reader.fb_profile.Facebook;
 
 public class FileFbProfileLoader implements FbProfilesLoader {
 
     @Override
-    public FbProfile loadFbProfile(File file) throws JsonParseException, JsonMappingException, IOException {
+    public Facebook loadFbProfile(File file) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE);
         mapper.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true);
         mapper.configure(DeserializationFeature.USE_LONG_FOR_INTS, true);
-        FbProfile profile = mapper.readValue(file, FbProfile.class);
+        Facebook profile = mapper.readValue(file, Facebook.class);
         return profile;
     }
 

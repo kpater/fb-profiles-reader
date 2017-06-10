@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import pl.sointeractive.fb_profiles_reader.jackson.Epoch2LocalDateTimeDeserializer;
+import pl.sointeractive.fb_profiles_reader.data_loader.Epoch2LocalDateTimeDeserializer;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FbProfile {
+public class Facebook {
     String id;
     @JsonDeserialize(using = Epoch2LocalDateTimeDeserializer.class)
     LocalDateTime birthday;
@@ -28,10 +28,10 @@ public class FbProfile {
     Relationship relationship;
     List<Post> posts;
 
-    public FbProfile() {
+    public Facebook() {
     }
 
-    public FbProfile(String id) {
+    public Facebook(String id) {
         this.id = id;
     }
 

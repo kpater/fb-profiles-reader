@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 import pl.sointeractive.fb_profiles_reader.data_loader.FbProfilesLoader;
 import pl.sointeractive.fb_profiles_reader.exception.NotFoundException;
-import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
+import pl.sointeractive.fb_profiles_reader.fb_profile.Facebook;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Post;
 import pl.sointeractive.fb_profiles_reader.properties.ApplicationProperties;
 
@@ -32,7 +32,7 @@ public class DefaultFacebookService implements FacebookService {
 
     FbProfilesLoader fbProfilesLoader;
 
-    List<FbProfile> fbProfilesSortedById;
+    List<Facebook> fbProfilesSortedById;
 
     public DefaultFacebookService(FbProfilesLoader fbProfilesLoader) throws IOException {
         this.fbProfilesLoader = fbProfilesLoader;
@@ -40,11 +40,11 @@ public class DefaultFacebookService implements FacebookService {
     }
 
     @Override
-    public FbProfile findById(String id) throws NotFoundException {
+    public Facebook findById(String id) throws NotFoundException {
         // return fbProfilesSortedById.stream().filter(p -> p.getId().equals(id)).findFirst()
         // .orElseThrow(() -> new NotFoundException(id));
-        int i = Collections.binarySearch(fbProfilesSortedById, new FbProfile(id),
-                Comparator.comparing(FbProfile::getId));
+        int i = Collections.binarySearch(fbProfilesSortedById, new Facebook(id),
+                Comparator.comparing(Facebook::getId));
         if (i < 0) {
             throw new NotFoundException(id);
         }
@@ -53,19 +53,19 @@ public class DefaultFacebookService implements FacebookService {
 
     @Override
     public Map<String, Long> findMostCommonWords() {
-        return fbProfilesSortedById.stream().map(FbProfile::getPosts).flatMap(Collection::stream)
+        return fbProfilesSortedById.stream().map(Facebook::getPosts).flatMap(Collection::stream)
                 .map(Post::getMessageAsWords).flatMap(Arrays::stream)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
     @Override
     public Set<String> findPostIdsByKeyword(String word) {
-        return fbProfilesSortedById.stream().map(FbProfile::getPosts).flatMap(Collection::stream)
+        return fbProfilesSortedById.stream().map(Facebook::getPosts).flatMap(Collection::stream)
                 .filter(post -> post.hasWord(word)).map(Post::getId).collect(Collectors.toCollection(HashSet::new));
     }
 
     @Override
-    public Set<FbProfile> findAll() {
+    public Set<Facebook> findAll() {
         return fbProfilesSortedById.stream().sorted(fbProfileFirstNameLastNameComparaotr())
                 .collect(Collectors.toCollection(LinkedHashSet::new));
     }
@@ -73,10 +73,10 @@ public class DefaultFacebookService implements FacebookService {
     private void loadFbProfiles() throws IOException {
         fbProfilesSortedById = Files.walk(Paths.get(ApplicationProperties.JSON_DIRECTORY)).filter(Files::isRegularFile)
                 .map(Path::toFile).map(file2FbProfile()).filter(Objects::nonNull)
-                .sorted(Comparator.comparing(FbProfile::getId)).collect(Collectors.toCollection(ArrayList::new));
+                .sorted(Comparator.comparing(Facebook::getId)).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    private Function<File, FbProfile> file2FbProfile() {
+    private Function<File, Facebook> file2FbProfile() {
         return (File file) -> {
             try {
                 return fbProfilesLoader.loadFbProfile(file);
@@ -88,9 +88,9 @@ public class DefaultFacebookService implements FacebookService {
         };
     }
 
-    private Comparator<FbProfile> fbProfileFirstNameLastNameComparaotr() {
-        return Comparator.<FbProfile, String>comparing(FbProfile::getFirstName)
-                .thenComparing(Comparator.comparing(FbProfile::getLastName));
+    private Comparator<Facebook> fbProfileFirstNameLastNameComparaotr() {
+        return Comparator.<Facebook, String>comparing(Facebook::getFirstName)
+                .thenComparing(Comparator.comparing(Facebook::getLastName));
     }
 
 }

@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import junit.framework.TestCase;
 import pl.sointeractive.fb_profiles_reader.fb_profile.City;
-import pl.sointeractive.fb_profiles_reader.fb_profile.FbProfile;
+import pl.sointeractive.fb_profiles_reader.fb_profile.Facebook;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Gender;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Post;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Relationship;
@@ -19,7 +19,7 @@ public class FbProfilesLoaderTest extends TestCase {
 
     File file;
     FbProfilesLoader fbProfileLoader;
-    FbProfile fbProfile;
+    Facebook fbProfile;
 
     @Override
     protected void setUp() throws Exception {
