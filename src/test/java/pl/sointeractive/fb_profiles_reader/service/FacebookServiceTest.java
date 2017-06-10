@@ -1,7 +1,10 @@
 package pl.sointeractive.fb_profiles_reader.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -22,15 +25,15 @@ public class FacebookServiceTest extends TestCase {
 
     @Test
     public void testFindByIdFound() throws NotFoundException {
-        Facebook facebookProfile = facebookService.findById("1001");
+        Facebook facebookProfile = facebookService.findById("9");
         assertNotNull(facebookProfile);
-        assertEquals("1001", facebookProfile.getId());
+        assertEquals("Lewandowski", facebookProfile.getLastName());
     }
 
     @Test
     public void testFindByIdNotFound() throws NotFoundException {
         try {
-            Facebook facebookProfile = facebookService.findById("-1");
+            facebookService.findById("-1");
             fail();
         } catch (NotFoundException e) {
             assertEquals("Id -1 not found", e.getMessage());
@@ -39,8 +42,14 @@ public class FacebookServiceTest extends TestCase {
 
     @Test
     public void testFindMostCommonWords() {
-        assertEquals(6, facebookService.findMostCommonWords().get("test").longValue());
-        assertEquals(4, facebookService.findMostCommonWords().get("message").longValue());
+        assertEquals(3, facebookService.findMostCommonWords().get("gol").longValue());
+        assertEquals(2, facebookService.findMostCommonWords().get("brawo").longValue());
+    }
+
+    @Test
+    public void testFindPostIdsByKeyword() {
+        assertTrue(facebookService.findPostIdsByKeyword("rikoszet").contains("5"));
+        assertEquals(new HashSet<String>(Arrays.asList("14", "15", "16")), facebookService.findPostIdsByKeyword("Gol"));
     }
 
     private List<Facebook> getFacebookProfiles() {
@@ -48,64 +57,98 @@ public class FacebookServiceTest extends TestCase {
         List<Post> posts;
         Facebook facebookProfile;
 
-        facebookProfile = new Facebook("100");
-        posts = new ArrayList<Post>();
-        posts.add(getPost("1", "First message"));
-        posts.add(getPost("2", "Second message"));
-        posts.add(getPost("3", "Thrid message"));
-        facebookProfile.setPosts(posts);
-        facebookProfiles.add(facebookProfile);
-
         facebookProfile = new Facebook("1");
+        facebookProfile.setFirstName("Wojciech");
+        facebookProfile.setLastName("Szczęsny");
         posts = new ArrayList<Post>();
-        posts.add(getPost("1", "My message"));
+        posts.add(getPost("1", "Wreszcie pierwsza 11 :)"));
+        posts.add(getPost("2", "Nie było co robić"));
         facebookProfile.setPosts(posts);
         facebookProfiles.add(facebookProfile);
 
-        facebookProfile = new Facebook("1001");
+        facebookProfile = new Facebook("3");
+        facebookProfile.setFirstName("Artur");
+        facebookProfile.setLastName("Jedrzejczyk");
         posts = new ArrayList<Post>();
-        posts.add(getPost("1", "Used word test"));
+        posts.add(getPost("4", "Brawo, brawo, brawo"));
         facebookProfile.setPosts(posts);
         facebookProfiles.add(facebookProfile);
 
-        facebookProfile = new Facebook("500");
+        facebookProfile = new Facebook("2");
+        facebookProfile.setFirstName("Michal");
+        facebookProfile.setLastName("Pazdan");
         posts = new ArrayList<Post>();
-        posts.add(getPost("1", "test word to be counted"));
+        posts.add(getPost("5", "Jak pech to pech: Nie dość że rikoszet, to jeszcze ręką"));
         facebookProfile.setPosts(posts);
         facebookProfiles.add(facebookProfile);
 
-        facebookProfile = new Facebook("300");
+        facebookProfile = new Facebook("4");
+        facebookProfile.setFirstName("Tiago");
+        facebookProfile.setLastName("Cionek");
         posts = new ArrayList<Post>();
-        posts.add(getPost("1", "check test word"));
+        posts.add(getPost("6", "Swoje zrobiłem"));
         facebookProfile.setPosts(posts);
         facebookProfiles.add(facebookProfile);
 
-        facebookProfile = new Facebook("1300");
+        facebookProfile = new Facebook("20");
+        facebookProfile.setFirstName("Lukasz");
+        facebookProfile.setLastName("Piszczek");
         posts = new ArrayList<Post>();
-        posts.add(getPost("1", "here there is also test word"));
+        posts.add(getPost("7", "Dobrze było znowu pograć z Kubą i Robertem"));
         facebookProfile.setPosts(posts);
         facebookProfiles.add(facebookProfile);
 
-        facebookProfile = new Facebook("10");
+        facebookProfile = new Facebook("11");
+        facebookProfile.setFirstName("Kamil");
+        facebookProfile.setLastName("Grosicki");
         posts = new ArrayList<Post>();
-        posts.add(getPost("1", "Another test word here"));
-        posts.add(getPost("1", "But not here"));
+        posts.add(getPost("8", "Turbo mi się kilka razy włączyło, szkoda tylko że nic nie wpadło"));
         facebookProfile.setPosts(posts);
         facebookProfiles.add(facebookProfile);
 
-        facebookProfile = new Facebook("140");
+        facebookProfile = new Facebook("8");
+        facebookProfile.setFirstName("Karol");
+        facebookProfile.setLastName("Linetty");
         posts = new ArrayList<Post>();
-        posts.add(getPost("1", "Another test word here"));
-        posts.add(getPost("1", "But not here"));
+        posts.add(getPost("9", "Doświadczenie zebrane"));
+        posts.add(getPost("10", "Kilka drobnych błędów, ale ogólnie na plus"));
         facebookProfile.setPosts(posts);
         facebookProfiles.add(facebookProfile);
 
-        facebookProfile = new Facebook("1004");
+        facebookProfile = new Facebook("5");
+        facebookProfile.setFirstName("Krzysztof");
+        facebookProfile.setLastName("Maczynski");
+        posts = new ArrayList<Post>();
+        posts.add(getPost("11", "Wrócę silniejszy"));
+        facebookProfile.setPosts(posts);
         facebookProfiles.add(facebookProfile);
 
-        facebookProfile = new Facebook("1050");
+        facebookProfile = new Facebook("16");
+        facebookProfile.setFirstName("Jakub");
+        facebookProfile.setLastName("Blaszczykowski");
+        posts = new ArrayList<Post>();
+        posts.add(getPost("12", "Spokojnie, spokojnie, jeszcze 4 mecze przed nami"));
+        facebookProfile.setPosts(posts);
         facebookProfiles.add(facebookProfile);
 
+        facebookProfile = new Facebook("19");
+        facebookProfile.setFirstName("Piotr");
+        facebookProfile.setLastName("Zielinski");
+        posts = new ArrayList<Post>();
+        posts.add(getPost("13", "Robertowi brakowało bramki do skompletowania hat-tricka to mu karnego wypracowałem"));
+        facebookProfile.setPosts(posts);
+        facebookProfiles.add(facebookProfile);
+
+        facebookProfile = new Facebook("9");
+        facebookProfile.setFirstName("Robert");
+        facebookProfile.setLastName("Lewandowski");
+        posts = new ArrayList<Post>();
+        posts.add(getPost("14", "Gol"));
+        posts.add(getPost("15", "Gol"));
+        posts.add(getPost("16", "Gol"));
+        posts.add(getPost("17", "To piłkę sobie na pamiątkę do domu wziąłem. Brawo Polska!"));
+        facebookProfile.setPosts(posts);
+        facebookProfiles.add(facebookProfile);
         return facebookProfiles;
     }
 

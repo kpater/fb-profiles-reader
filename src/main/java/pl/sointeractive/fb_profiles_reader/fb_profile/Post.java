@@ -25,7 +25,7 @@ public class Post {
     }
 
     public boolean hasWord(String word) {
-        return Arrays.asList(message.split(StringUtils.WORD_REGEX)).contains(word);
+        return Arrays.stream(message.split(StringUtils.WORD_REGEX)).anyMatch(word::equalsIgnoreCase);
     }
 
     public String[] getMessageAsWords() {

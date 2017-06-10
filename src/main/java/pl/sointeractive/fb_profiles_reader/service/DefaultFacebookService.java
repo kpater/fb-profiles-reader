@@ -13,6 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import pl.sointeractive.fb_profiles_reader.exception.NotFoundException;
 import pl.sointeractive.fb_profiles_reader.fb_profile.Facebook;
@@ -41,26 +42,30 @@ public class DefaultFacebookService implements FacebookService {
 
     @Override
     public Map<String, Long> findMostCommonWords() {
-        return facebookProfilesSortedById.stream().map(Facebook::getPosts).filter(Objects::nonNull)
-                .flatMap(Collection::stream).map(Post::getMessageAsWords).flatMap(Arrays::stream)
+        return getPostStream().map(Post::getMessageAsWords).filter(Objects:nonNull).flatMap(Arrays::stream)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
     @Override
     public Set<String> findPostIdsByKeyword(String word) {
-        return facebookProfilesSortedById.stream().map(Facebook::getPosts).flatMap(Collection::stream)
-                .filter(post -> post.hasWord(word)).map(Post::getId).collect(Collectors.toCollection(HashSet::new));
+        return getPostStream().filter(post -> post.hasWord(word)).map(Post::getId)
+                .collect(Collectors.toCollection(HashSet::new));
     }
 
     @Override
     public Set<Facebook> findAll() {
-        return facebookProfilesSortedById.stream().sorted(facebookProfileFirstNameLastNameComparaotr())
+        return facebookProfilesSortedById.stream().sorted(facebookProfileFirstNameLastNameComparator())
                 .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    private Comparator<Facebook> facebookProfileFirstNameLastNameComparaotr() {
+    private Comparator<Facebook> facebookProfileFirstNameLastNameComparator() {
         return Comparator.<Facebook, String>comparing(Facebook::getFirstName)
                 .thenComparing(Comparator.comparing(Facebook::getLastName));
+    }
+
+    private Stream<Post> getPostStream() {
+        return facebookProfilesSortedById.stream().map(Facebook::getPosts).filter(Objects::nonNull)
+                .flatMap(Collection::stream);
     }
 
 }
